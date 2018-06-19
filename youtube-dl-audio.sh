@@ -130,14 +130,6 @@ while [[ -n $1 ]] ; do
 	esac
 done
 
-#echo "récapitulatif:
-#répertoire du script: $initial
-#répertoire des url: $dossier
-#fichier des url: $dossier/$nom
-#format: $format
-#répertoire d'enregistrement des videos:"
-#pwd
-
 # vérifications -i / -n
 cat $dossier/$nom > /dev/null ||
 {
