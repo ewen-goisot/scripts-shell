@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # mémorise l'ancienne position de l'ancienne fenêtre
 unset i xm ym xp yp x y w h
@@ -12,8 +12,8 @@ eval $(xdotool getmouselocation |
 	sed -n -e "s/.*x:\([0-9]*\).*/xm=\1/p" )
 eval $(xdotool getmouselocation |
 	sed -n -e "s/.*y:\([0-9]*\).*/ym=\1/p" )
-eval $(python -c "print(\"xp=\"+str(1000*($xm-$x)/$w))")
-eval $(python -c "print(\"yp=\"+str(1000*($ym-$y)/$h))")
+xp=$(( 1000*($xm-$x)/$w ))
+yp=$(( 1000*($ym-$y)/$h ))
 if [[ $(cat /tmp/flist | grep "$i") =~ "$i" ]];
 then
 	sed -i "s/^$i .*/$i $xp $yp/" /tmp/flist
@@ -41,7 +41,8 @@ then
 	then
 		# ajouter "1" pour éviter un décallage sur le long terme
 		# ajouter ici des conditions dépendant du logiciel pour la sauvegarde
-		xdotool mousemove $(echo "$(expr 1 + $x + $w \* $xp / 1000) $(expr 1 + $y + $h \* $yp / 1000)")
+		#xdotool mousemove $(echo "$(expr 1 + $x + $w \* $xp / 1000) $(expr 1 + $y + $h \* $yp / 1000)")
+		xdotool mousemove $(( 1+$x+$w*$xp/1000 )) $(( 1+$y+$h*$yp/1000  ))
 	else
 		# ajouter ici des conditions dépendant du logiciel pour le dépassement du cadre
 		xdotool mousemove $(echo "$(expr $x + $w / 2) $(expr $y + $h / 2)")
