@@ -1,5 +1,10 @@
-#!/bin/zsh
+#!/bin/bash
 
+# doit être lancé dans i3wm: exec "./chemin/vers/ça move left" sert à déplacer la fenêtre à gauche (comme en temps normal dans i3) et faire que la souris adapte sa position.
+# la position de la souris est mémorisée pour chaque fenêtre dans laquelle le script a été lancé au moins une fois
+# par défaut elle est placée au milieu des fenêtres (en l'absence d'informations)
+# la position est relative: prends en compte la taille et la position de la fenêtre (si la souris est à 20 pixels du haut et que l'on réduit la fenêtre de moitié verticalement, elle sera alors à environ 10 pixels du haut)
+# TODO: ne fonctionne pas parfaitement quand une touche est maintenue (garder appuyé pour redimentionner) mais cet usage est rare… fonctionne pour plusieurs appuis, consécutifs ou non.
 # mémorise l'ancienne position de l'ancienne fenêtre
 unset i xm ym xp yp x y w h
 eval $(echo "i=$(xdotool getwindowfocus)")
